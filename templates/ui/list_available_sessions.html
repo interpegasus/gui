@@ -1,0 +1,17 @@
+{% extends "notification/template_normal.html" %}
+
+{% block title %}Enter{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/validator/jquery.validate.min.js"
+            xmlns="http://www.w3.org/1999/html"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/signup.js"></script>
+{% endblock %}
+{% block content %}
+    <h5>{{ app.app_name }}</h5>
+    <p>Social Messaging</p>
+
+    {% for session in sessions %}
+        &nbsp;&nbsp;&nbsp;<a href="/edit_session/{{ session.id }}">Edit {{ session.name }} Social Messaging</a><br />
+    {% endfor %}
+
+{% endblock %}

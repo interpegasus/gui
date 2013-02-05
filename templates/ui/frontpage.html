@@ -1,0 +1,66 @@
+{% extends "movies/template_normal.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div id="movie_slider">
+	<div id="waterwheel-carousel-default">
+		<div class="carousel-controls">
+			<div class="carousel-prev">
+				<a href="#">&lt; PREV</a>
+			</div>
+			<div class="carousel-next">
+				<a href="#">NEXT &gt;</a>
+			</div>
+		</div>
+		<div class="carousel-images">
+			<a href="/movies/1/"><img src="{{STATIC_URL}}javascript/carrousel/img/MenWhoStareAtGoats_Poster.png" alt="Movie" /></a>
+			<a href="/movies/2/"><img src="{{STATIC_URL}}javascript/carrousel/img/PirateRadio_Poster.png" alt="Movie" /></a>
+			<a href="/movies/3/"><img src="{{STATIC_URL}}javascript/carrousel/img/ASeriousMan_Poster.png" alt="Movie" /></a>
+			<a href="/movies/4/"><img src="{{STATIC_URL}}javascript/carrousel/img/AwayWeGo_Poster.png" alt="Movie" /></a>
+			<a href="/movies/5/"><img src="{{STATIC_URL}}javascript/carrousel/img/Greenberg_Poster.png" alt="Movie" /></a>
+			<a href="/movies/6/"><img src="{{STATIC_URL}}javascript/carrousel/img/Brothers_Poster.png" alt="Movie" /></a>
+			<a href="/movies/7/"><img src="{{STATIC_URL}}javascript/carrousel/img/Milk_Poster.png" alt="Movie" /></a>
+			<a href="/movies/8/"><img src="{{STATIC_URL}}javascript/carrousel/img/Traitor_Poster.png" alt="Movie" /></a>
+		</div>
+	</div>
+</div>
+<div id="code_box">
+
+	<form id="frontpage_form" action="/process_redemption_code/" method="post">
+		{% csrf_token %}
+
+		{% if user_codes %}
+			<h5>My Codes</h5>
+			{% for code in user_codes %}
+				{% if code.is_expired %}
+					<p id="my_code_key">{{code.code_key}}</p> <label id="my_code_expired_label">Expired</label><br />
+				{% elif code.movie %}
+					<p id="my_code_key"><a href="/enjoy-the-show/{{code.movie.id}}/">{{code.code_key}}</a></p> <label id="my_code_watch_label">Redeemed</label><br />
+				{% else %}
+					<p id="my_code_key">{{code.code_key}}</p> <label id="my_code_available_label">Available</label><br />
+				{% endif %}
+			{% endfor %}
+		{% else %}
+		<p id="code_frontpage">
+			<label for="code"><img src="{{STATIC_URL}}/images/fpimg.png" /></label>
+		</p>
+			{% if code_error_message %}
+			<p id="error_message_fp">
+				{{ code_error_message }}
+			</p>
+			{% endif %}
+		<p class="center">
+			<input type="text" name="code" id="code" value="{{code}}" />
+		</p>
+		<p class="center">
+			<input type="submit" class="button1" value="" />
+		</p>
+		{% endif %}
+	</form>
+
+</div>
+<div id="film_can_text">
+	<pre>{{static.content}}</pre>
+</div>
+{% endblock %}

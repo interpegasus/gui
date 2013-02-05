@@ -1,0 +1,118 @@
+{% extends "notification/template_normal.html" %}
+
+{% block title %}Enter{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/validator/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/datetime/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/n.js"></script>
+{% endblock %}
+{% block content %}
+    <h5>{{ app.app_name }} Push Notification Form</h5>
+    {% if error_message %}
+        <div id="my_feedback">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    {% if feedback %}
+        <div id="my_feedback">
+            {{ feedback }}
+        </div>
+    {% else %}
+
+        <div id="form_container">
+            <form id="notification_form" method="post" action="/send_notification/{{ app.id }}/">
+                <div>
+                    <fieldset>
+                        {% csrf_token %}
+
+                        <div>Please select an environment, and introduce a notification message to send to the App users.</div>
+                        <div>
+                            <label class="description" for="environment">Environment</label><br />
+                            <select class="element select medium" id="environment" name="environment">
+                                <option value="production">Production</option>
+                                <option value="sandbox_test">Test - Sandbox Notification</option>
+                                <option value="production_test">Test - Production Notification</option>
+                            </select>
+                        </div>
+                        <div id="sandbox_tokens" style="display: none;">
+                            <label for="token_dev_1">Token 1 (* Required)</label><br/>
+                            <input id="token_dev_1" name="token_dev_1"/><br/>
+                        </div>
+                        <div style="display: none;">
+                            <label class="description" for="target">Target</label><br />
+                            <select class="element select medium" id="target" name="target">
+                                <option value="valid" selected="selected">Valid Devices</option>
+                                <option value="flag">Flagged Devices</option>
+                                <option value="all">All Valid and Flagged Devices</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="description" for="alert_message">Notification Message </label><br />
+                            <textarea id="alert_message" name="alert_message" class="element textarea medium" maxlength="96"></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <h6>Optional Notification Fields</h6>
+                <div>
+                    <input type="checkbox" name="schedule_input" id="schedule_input" value="Yes">
+                    <label for="schedule_input" class="checkbox_label">Schedule Notification (*Optional)</label>
+                    <br>
+                </div>
+                <div style="display: none;" id="schedule_me">
+                    <fieldset>
+                        <div>
+                            <label class="description" for="scheduled_date">Date</label><br />
+                            <input readonly="readonly" id="scheduled_date" name="scheduled_date" class="element text large" type="text" maxlength="255" value="{% now "m/j/Y" %}"/>
+                        </div>
+                        <div>
+                            <label class="description" for="scheduled_time">Time</label><br />
+                            <input readonly="readonly" id="scheduled_time" name="scheduled_time" class="element text large" type="text" maxlength="255" value="06:00"/>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="schedule_for_timezone" id="schedule_for_timezone" value="Yes">
+                            <label for="schedule_for_timezone" class="checkbox_label">Schedule For One Timezone (*Optional)</label>
+                            <br>
+                        </div>
+                        <div id="schedule_for_timezone_select">
+                            <label class="description" for="sound">Default TimeZone </label><br />
+                            <select id="timezone" name="timezone">
+                                <option value="" selected="selected">-----------------------------------------</option>
+                                {% for t in timezones %}
+                                    <option value="{{ t.timezone }}">{{ t.timezone|capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </fieldset>
+                </div>
+                <hr/>
+                <div>
+                    <label class="description" for="url">URL (*Optional) </label><br />
+                    <input id="url" name="url" class=" mytext" type="text" maxlength="255" value=""/>
+                </div>
+                <hr/>
+                <div>
+                    <label class="description" for="sound">Notification Sound (*Optional) </label><br />
+                    <select id="sound" name="sound">
+                        {% for s in sounds %}
+                            <option value="{{ s.sound }}">{{ s.sound|capfirst }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr/>
+                <div>
+                    <label class="description" for="badge">Badge (*Optional) </label><br />
+                    <select id="badge" name="badge">
+                        {% for b in badges %}
+                            <option value="{{ b.badge }}">{{ b.badge|capfirst }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr/>
+                <div>
+                    <input id="saveForm" class="button_text" type="submit" name="submit" value="Send Notification"/>
+                </div>
+            </form>
+            <br/><br/>
+        </div>
+    {% endif %}
+{% endblock %}

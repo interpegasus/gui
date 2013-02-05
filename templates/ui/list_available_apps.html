@@ -1,0 +1,32 @@
+{% extends "notification/template_normal.html" %}
+
+{% block title %}Enter{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/validator/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/signup.js"></script>
+{% endblock %}
+{% block content %}
+    <h5>List Of Available Apps</h5>
+    <ul>
+        {% if permission_objects %}
+            {% for app in permission_objects %}
+                <li style="list-style-image: none;list-style: none;list-style-type: none;">
+                    <b>{{ app.app.app_name }}</b>:
+                    <ul>
+                        <li>
+                            <a href="/notification/{{ app.app.id }}">Apple Push Notifications</a>
+                        </li>
+                        {% if app.app.has_posts_feature %}
+                            <li>
+                                <a href="/list_sessions/{{ app.app.id }}">Social Messaging</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endfor %}
+        {% else %}
+            Please request permission for sending notifications at
+            <a href="mailto:admin@mobovivo.com">admin@mobovivo.com</a>
+        {% endif %}
+    </ul>
+{% endblock %}

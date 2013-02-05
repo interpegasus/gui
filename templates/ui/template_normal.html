@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title>Apple Push Notification System - {% block title %}Your Content, Your Way{% endblock %}</title>
+    <meta name="keywords"
+          content="video,SVOD,S-VOD, apps, video apps, online video, online video platform, tv everywhere, video hosting, video player, mobile video, internet tv, internet video, web video, video publishing, video analytics, video ads, mobile video">
+    <meta name="description"
+          content="Stay tuned to audience everywhere with Subscription Video on demand (SVOD), Second Screen and Fan Engagement Apps.">
+    <link href="http://www.mobovivo.com/assets/templates/mobovivo/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="http://www.mobovivo.com/assets/css/mobovivo-style.css" type="text/css"
+          media="screen, projection"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"
+          media="screen, projection"/>
+
+
+     <link rel="stylesheet" href="http://www.mobovivo.com/assets/js/nivo-slider/themes/default/default.css"
+          type="text/css" media="screen"/>
+     <link rel="stylesheet" href="{{ STATIC_URL }}css/ui/jquery-ui-1.9.2.custom.min.css" type="text/css" media="screen"/>
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/jquery-ui-1.9.2.custom.min.js"></script>
+
+    {% block js %}{% endblock %}
+</head>
+
+<body>
+<div id="microdata">
+    <div itemscope itemtype="http://data-vocabulary.org/Organization">
+        <h1 itemprop="name">Mobovivo</h1>
+
+        <p itemprop="description">Apple Push Notification System.</p>
+
+        <p itemprop="address" itemscope
+           itemtype="http://data-vocabulary.org/Address">
+            <span itemprop="country-name">U.S.A.</span>, <span
+                itemprop="country-name">Canada</span>, <span itemprop="tel">1-818-302-0096</span>,
+        </p>
+    </div>
+    <a href="http://www.mobovivo.com" itemprop="url">http://www.mobovivo.com</a>
+</div>
+<hr id="header_line"/>
+<div id="wrapper">
+    <header id="header">
+        <div id="logo-container-div">
+            <a href="/"><img id="mobovivo-logo"
+                                                    src="http://www.mobovivo.com/assets/images/mobovivo/mobovivo_logo.fw.png"/></a>
+        </div>
+
+        <div id="grey-top-menu">
+            <h5>Apple Push Notification System</h5>
+        </div>
+        <a id="home" href="/"><img src="http://www.mobovivo.com/assets/images/home-icon.png" /></a>
+
+        <h1 style="position:absolute;top:60px;margin-left:520px;">{% if is_logged_in %}
+            <a id="header_login" href="/exit">Sign Out</a>
+            {% else %}<a id="header_login" href="/enter">Sign In / Sign Up</a>{% endif %}</h1>
+    </header>
+    <!-- #header-->
+
+
+    <br/>
+
+    <section id="middle">
+        <div id="container">
+            <div id="contentFull">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <!-- #container-->
+
+        <aside id="sideLeftEmpty"></aside>
+        <!-- #sideLeft -->
+
+    </section>
+    <!-- #middle-->
+
+</div>
+<!-- #wrapper -->
+
+<footer id="footer">
+    <div id="footerInner">
+        <div id="footerColumn1">
+            <h3>Mobovivo Inc.</h3>
+
+            <p>
+                Mobovivo’s award-winning software solutions engage TV viewers during broadcast and across the entire
+                content lifecycle. Viewers interact with celebrities, photos, video, games, advertising and fans during
+                and between shows.
+            </p>
+        </div>
+        <div id="footerColumn2">
+            <h3>Solutions</h3>
+            <a href="/solutions/companion-app.html">Companion Apps</a>
+            <br>
+            <a href="/solutions/TV-show-apps.html">TV Show Apps</a>
+            <br>
+            <a href="/solutions/fan-engagement-apps.html">Fan Engagement Apps</a>
+            <br>
+            <a href="/solutions/analytics-and-reporting.html">Analytics and Reporting</a>
+            <br>
+        </div>
+        <div id="footerColumn3">
+            <h3>Company</h3>
+            <a href="/about-us/overview.html">About Us</a>
+            <br>
+            <a href="/about-us/careers.html">Careers</a>
+            <br>
+            <a href="/about-us/events.html">News &amp; Events</a>
+            <br>
+        </div>
+        <div id="footerColumn4">
+            <h3>Support</h3>
+            <a href="/privacy.html">Privacy Policy</a>
+            <br>
+            <a href="/terms-of-use.html">Terms of Use</a>
+        </div>
+        <div id="footerColumn5">
+            <h3>Stay Tuned</h3>
+            <a href="http://blog.mobovivo.com/">Blog</a>
+            <br>
+            <a href="http://www.facebook.com/group.php?gid=2309103978">Facebook</a>
+            <br>
+            <a href="http://twitter.com/#!/mobovivo">Twitter</a>
+            <br>
+            <a href="http://www.linkedin.com/company/mobovivo">Linked In</a>
+            <br>
+            <br>
+            <a href="http://www.facebook.com/group.php?gid=2309103978"><img
+                    src="http://www.mobovivo.com/assets/images/fb.jpg" alt="fb" height="25"
+                    width="25"></a>&nbsp;&nbsp;<a href="http://twitter.com/#!/mobovivo"><img
+                src="http://www.mobovivo.com/assets/images/tw.jpg" alt="tw" height="25" width="25"></a>&nbsp;&nbsp;<a
+                href="http://www.linkedin.com/company/mobovivo"><img
+                src="http://www.mobovivo.com/assets/images/linkedin.jpg" alt="linkedin" height="25" width="25"></a>
+        </div>
+        <div id="footerCopyright">
+            <p>
+                © 2012 Mobovivo Inc.
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- #footer -->
+</body>
+</html>

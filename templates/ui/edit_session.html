@@ -1,0 +1,197 @@
+{% extends "notification/template_normal.html" %}
+
+{% block title %}Enter{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/validator/jquery.validate.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css"/>
+    <script type="text/javascript">
+        var VIGET= $('#facebook_icon_url');
+        VIGET.fileInputs = function () {
+            var $this = $(this),
+                    $val = $this.val(),
+                    valArray = $val.split('\\'),
+                    newVal = valArray[valArray.length - 1],
+                    $button = $this.siblings('.button'),
+                    $fakeFile = $this.siblings('.file-holder');
+            if (newVal !== '') {
+                $button.text('Photo Chosen');
+                if ($fakeFile.length === 0) {
+                    $button.after('' + newVal + '');
+                } else {
+                    $fakeFile.text(newVal);
+                }
+            }
+        };
+
+        $(document).ready(function () {
+            $("#autopost_form").validate({
+                rules : {
+                    facebook_post_body : {
+                        required : true,
+                        maxlength: 100,
+                        minlength: 7
+                    },
+                    facebook_post_title : {
+                        required : true,
+                        maxlength: 70,
+                        minlength: 7
+                    },
+                    facebook_post_url : {
+                        required : true,
+                        maxlength: 100,
+                        minlength: 7
+                    }
+                }
+            });
+            $('.file-wrapper input[type=file]').bind('change focus click', VIGET.fileInputs);
+
+        });
+    </script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script>
+        function myDialog() {
+           if ($("#autopost_form").valid()){
+                $('#dialog').dialog();
+                $(".ui-dialog-titlebar").hide();
+                $("#my_feedback").hide();
+           }
+        }
+    </script>
+
+{% endblock %}
+{% block content %}
+    <a href="/list_sessions/{{ session.app.id }}/">>> &nbsp; Go Back</a>
+    {% if feedback %}
+        <div id="my_feedback">
+            {{ feedback }}
+        </div>
+    {% endif %}
+    <div>
+        <form id="autopost_form" method="POST" action="/update_session/{{ session.id }}/" enctype="multipart/form-data"
+              onsubmit="myDialog();">
+            {% csrf_token %}
+            <h5>{{ session.app.app_name }} > {{ session.name }}</h5>
+            <hr style="border-color: #d3d3d3;"/>
+            <div id="facebook_div">
+                <h6>Facebook</h6>
+                <table>
+                    <tr>
+                        <td><label for="facebook_icon_url">Icon:</label></td>
+                        <td><img style="height:50px;width: 50px;border:solid 1px;float:left;clear:none;margin:5px;"
+                                 src="{{ session.facebook_icon_url }}"/>
+                            <span class="file-wrapper">
+                            <input type="file" name="facebook_icon_url" id="facebook_icon_url"
+                                   onchange="myDialog();this.form.submit();" accept="image/gif, image/jpeg, image/png"/>
+                            <span class="button">Upload a New Photo</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="facebook_post_title">Title:</label></td>
+                        <td><input type="text" id="facebook_post_title" name="facebook_post_title" maxlength="70"
+                                   value="{{ session.facebook_post_title }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="facebook_post_body">Body:</label></td>
+                        <td><textarea id="facebook_post_body" maxlength="100"
+                                      name="facebook_post_body">{{ session.facebook_post_body }}</textarea>
+                            <br/><span style="font-size: x-small;">Max Characters:100</span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="facebook_post_url">URL:</label></td>
+                        <td><input type="text" id="facebook_post_url" name="facebook_post_url" maxlength="50"
+                                   value="{{ session.facebook_post_url }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><br/><input type="submit" value="Update" id="update_button"/></td>
+                        <td><br/><input type="button" value="Cancel" id="cancel_button"
+                                        onclick="location.href='/list_sessions/{{ session.app.id }}/'"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="twitter_div">
+                <h6>Twitter</h6>
+                <table>
+                    <tr>
+                        <td><label for="twitter_icon_url">Icon:</label></td>
+                        <td><img style="height:50px;width: 50px;border:solid 1px;float:left;clear:none;margin:5px;"
+                                 src="{{ session.twitter_icon_url }}"/>
+                            <span class="file-wrapper">
+                            <input type="file" name="twitter_icon_url" id="twitter_icon_url"
+                                   onchange="myDialog();this.form.submit();"/>
+                            <span class="button">Upload a New Photo</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="twitter_post_title">Title:</label></td>
+                        <td><input type="text" id="twitter_post_title" name="twitter_post_title"
+                                   value="{{ session.twitter_post_title }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="twitter_post_body">Body:</label></td>
+                        <td><textarea id="twitter_post_body"
+                                      name="twitter_post_body">{{ session.twitter_post_body }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label for="twitter_post_url">URL:</label></td>
+                        <td><input type="text" id="twitter_post_url" name="twitter_post_url"
+                                   value="{{ session.twitter_post_url }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><br/><input type="submit" value="Update"/></td>
+                        <td><br/><input type="button" value="Cancel"
+                                        onclick="location.href='/list_sessions/{{ session.app.id }}/'"/></td>
+                    </tr>
+                </table>
+
+                <hr style="border-color: #d3d3d3;"/>
+            </div>
+            <div id="email_div">
+                <h6>Email</h6>
+                <table>
+                    <tr>
+                        <td><label for="email_icon_url">Icon:</label></td>
+                        <td><img style="height:50px;width: 50px;border:solid 1px;float:left;clear:none;margin:5px;"
+                                 src="{{ session.email_icon_url }}"/>
+                            <span class="file-wrapper">
+                            <input type="file" name="email_icon_url" id="email_icon_url"
+                                   onchange="myDialog();$('#dialog').dialog();"/>
+                            <span class="button">Upload a New Photo</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email_post_title">Title:</label></td>
+                        <td><input type="text" id="email_post_title" name="email_post_title"
+                                   value="{{ session.email_post_title }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email_post_body">Body:</label></td>
+                        <td><textarea id="email_post_body"
+                                      name="email_post_body">{{ session.email_post_body }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email_post_url">URL:</label></td>
+                        <td><input type="text" id="email_post_url" name="email_post_url"
+                                   value="{{ session.email_post_url }}"/></td>
+                    </tr>
+                    <tr>
+                        <td><br/><input type="submit" value="Update" /></td>
+                        <td><br/><input type="button" value="Cancel"
+                                   onclick="location.href='/list_sessions/{{ session.app.id }}/'"/></td>
+                    </tr>
+                </table>
+                <hr style="border-color: #d3d3d3;"/>
+            </div>
+        </form>
+    </div>
+    <br/><br/>
+    <div id="dialog" title="Saving Information" style="text-align: center;display: none;">
+        <h6>Saving</h6>
+        <br/>
+        <img src="{{ STATIC_URL }}images/ajax-loader.gif"/>
+    </div>
+{% endblock %}
