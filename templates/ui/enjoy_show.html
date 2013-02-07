@@ -3,8 +3,8 @@
 {% block title %}{{ movie.title }}{% endblock %}
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer-3.2.11.min.js"></script>
-<script src="https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer.ipad-3.2.10.min.js"></script>
+<script src="https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer-3.2.11.min.js"></script>
+<script src="https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.ipad-3.2.10.min.js"></script>
 {% endblock %}
 {% block content %}
 <div id="title">
@@ -25,7 +25,7 @@
 			},
 			plugins : {
 				gatracker : {
-					url : "https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer.analytics-3.2.8.swf",
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.analytics-3.2.8.swf",
 					events : {
 						all : true
 					},
@@ -85,7 +85,7 @@
 			},
 			plugins : {
 				brselect : {
-					url : "https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer.bitrateselect-3.2.11.swf",
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.bitrateselect-3.2.11.swf",
 
 					// comment this out in production
 					onStreamSwitch : function(newItem) {
@@ -98,14 +98,14 @@
 					}
 				},
 				rtmp : {
-					url : 'https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer.rtmp-3.2.10.swf',
+					url : 'https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.rtmp-3.2.10.swf',
 					netConnectionUrl : 'rtmpe://{{cloudfront_domain}}/cfx/st'
 				},
 				controls : {
 					time : true
 				},
 				gatracker : {
-					url : "https://s3.amazonaws.com/alliance-movies.mobovivo.com/flowplayer/flowplayer.analytics-3.2.8.swf",
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.analytics-3.2.8.swf",
 					events : {
 						all : true
 					},
@@ -130,7 +130,9 @@
 				}, 5000);
 			}
 		});
-	}
+	}
+
+
 </script>
 <br>
 <br>

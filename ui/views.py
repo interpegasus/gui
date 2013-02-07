@@ -63,7 +63,7 @@ def process_create_account(request):
     from django.core.mail import send_mail
 
     send_mail('Registration Complete',
-        'This message confirms that your registration at http://apns.mobovivo.com/ is complete', 'noreply@mobovivo.com',
+        'This message confirms that your registration at http://apns.t-mobile.com/ is complete', 'noreply@t-mobile.com',
         [request.POST['email']])
     request.session['is_logged_in'] = True
     request.session['email'] = request.POST['email']
@@ -94,7 +94,7 @@ def process_forgot_password(request):
         u = False # user does not exist in database
     if u:
         #from django.core.mail import send_mail
-        #send_mail('Password Recovery', 'Your password at http://movies.chooseinteresting.com/ is:' + u.password, 'noreply@mobovivo.com', [request.POST['email']])
+        #send_mail('Password Recovery', 'Your password at http://movies.chooseinteresting.com/ is:' + u.password, 'noreply@t-mobile.com', [request.POST['email']])
         return render_to_response('ui/forgot_password.html',
             {'my_error_message': "An email with the password has been sent to: " + u.email},
             context_instance=RequestContext(request))

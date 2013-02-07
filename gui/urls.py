@@ -12,10 +12,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Configuration Form
-    url(r'^$', 'ui.views.views.home_list_options'),
-    url(r'^/$','ui.views.views.home_list_options'),
-    url(r'^/$','ui.views.views.home_list_options'),
-    url(r'^/$','ui.views.views.configuration_form'),
+    url(r'^$', 'ui.views.home_list_options'),
+    url(r'^/$','ui.views.home_list_options'),
+    url(r'^/$','ui.views.home_list_options'),
+    url(r'^/$','ui.views.configuration_form'),
 
     # User Session
     url(r'^enter/', 'ui.views.enter'),

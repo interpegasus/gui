@@ -166,7 +166,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
             },
-        'notification': {
+        'ui': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             },
