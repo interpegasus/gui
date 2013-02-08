@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from gui.validator import *
 
 # Create your models here.
 class User(models.Model):
@@ -47,8 +48,8 @@ class Configuration(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, blank=False, null=False)
     server = models.ForeignKey(Server, blank=False, null=False)
-    cpu = models.IntegerField(blank=False,null=False,default=4)
-    memory = models.IntegerField(blank=False,null=False,default=4)
+    cpu = models.IntegerField(blank=False,null=False,default=4,validators=[validate_even,validate_cpu])
+    memory = models.IntegerField(blank=False,null=False,default=4,validators=[validate_even,validate_memory])
     host = models.ForeignKey(Host, blank=False, null=False)
     data_center = models.ForeignKey(DataCenter, blank=False, null=False)
     cluster = models.ForeignKey(Cluster, blank=False, null=False)
