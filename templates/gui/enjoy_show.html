@@ -1,0 +1,152 @@
+{% extends "movies/enjoy_template.html" %}
+{% load aws-tags %}
+{% block title %}{{ movie.title }}{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer-3.2.11.min.js"></script>
+<script src="https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.ipad-3.2.10.min.js"></script>
+{% endblock %}
+{% block content %}
+<div id="title">
+	Enjoy The Show!
+</div>
+<div id="movie_player">
+	<a id="player954OmUd5" href="{{signed_url}}"> </a>
+</div>
+
+<script language="javascript">
+	if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+		$f("player954OmUd5", "http://releases.flowplayer.org/swf/flowplayer-3.2.12.swf", {
+			key : '{{player_key}}',
+			clip : {
+				// preserve aspect ratios
+				scaling : 'fit',
+				eventCategory: '{{ movie.title }}'
+			},
+			plugins : {
+				gatracker : {
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.analytics-3.2.8.swf",
+					events : {
+						all : true
+					},
+					debug : false,
+					accountId : "UA-33053911-1" // your Google Analytics id here
+				}
+			},
+			onStart : function() {
+				var self = this;
+				var timer = setInterval(function() {
+					document.getElementById('playtime').value = self.getTime();
+					$.ajax({
+						url : "/enjoy_ajax/",
+						type : "POST",
+						data : {
+							code : $('#code').val(),
+							playback : (self.getTime() / self.getClip().duration * 100),
+						}
+					}).done(function() {
+						$(this).addClass("done");
+					});
+				}, 5000);
+			}
+		}).ipad({
+			simulateiDevice : true,
+			controls : true
+		});
+	} else {
+		$f("player954OmUd5", "http://releases.flowplayer.org/swf/flowplayer-3.2.12.swf", {
+			key : '{{player_key}}',
+			clip : {
+				url : 'http://pseudo01.hddn.com/vod/demo.flowplayervod/flowplayer-960.mp4',
+				start : 0,
+				provider : 'rtmp',
+				autoPlay : true,
+				urlResolvers : 'brselect',
+				// preserve aspect ratios
+				scaling : 'fit',
+				eventCategory: '{{ movie.title }}',
+				bitrates : [
+
+				// use the 800 kbps item by default, the SD item, marked with sd: true
+				{
+					url : "mp4:{{movie.mp4_file_lo|aws_sign_cf_stream}}",
+					bitrate : 320,
+					sd : true,
+					isDefault : false
+				},
+
+				// this is the HD item, marked with hd: true
+				{
+					url : "mp4:{{movie.mp4_file_hi|aws_sign_cf_stream}}",
+					bitrate : 1066,
+					hd : true,
+					isDefault : true
+				}]
+			},
+			plugins : {
+				brselect : {
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.bitrateselect-3.2.11.swf",
+
+					// comment this out in production
+					onStreamSwitch : function(newItem) {
+						$f().getPlugin('content').setHtml("Switched to: " + newItem.streamName);
+					},
+					hdButton : {
+						// custom labels for the HD splash
+						splash : false,
+						place : 'controls'
+					}
+				},
+				rtmp : {
+					url : 'https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.rtmp-3.2.10.swf',
+					netConnectionUrl : 'rtmpe://{{cloudfront_domain}}/cfx/st'
+				},
+				controls : {
+					time : true
+				},
+				gatracker : {
+					url : "https://s3.amazonaws.com/alliance-movies.t-mobile.com/flowplayer/flowplayer.analytics-3.2.8.swf",
+					events : {
+						all : true
+					},
+					debug : false,
+					accountId : "UA-33053911-1" // your Google Analytics id here
+				}
+			},
+			onStart : function() {
+				var self = this;
+				var timer = setInterval(function() {
+					document.getElementById('playtime').value = self.getTime();
+					$.ajax({
+						url : "/enjoy_ajax/",
+						type : "POST",
+						data : {
+							code : $('#code').val(),
+							playback : (self.getTime() / self.getClip().duration * 100),
+						}
+					}).done(function() {
+						$(this).addClass("done");
+					});
+				}, 5000);
+			}
+		});
+	}
+
+
+</script>
+<br>
+<br>
+
+<hr id="green_hr" />
+<div id="movie_poster">
+	<img src="{{ movie.poster_url }}" alt ="" />
+</div>
+<div id="movie_title">
+	{{ movie.title }}
+</div>
+<div id="movie_description">
+	{{ movie.description }}
+</div>
+<input type="hidden" id="code" name="code" value="{{code}}" />
+<input type="hidden" id="playtime" name="playtime" value="0" />
+{% endblock %}
