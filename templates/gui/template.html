@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title>T-Mobile - {% block title %}{% endblock %}</title>
+    <meta name="keywords" content="T-Mobile">
+    <meta name="description" content="T-Mobile">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"
+          media="screen, projection"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/ui/jquery-ui-1.9.2.custom.min.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}javascript/jquery-ui-1.9.2.custom.min.js"></script>
+    {% block js %}{% endblock %}
+</head>
+
+<body>
+<div id="microdata">
+    <div itemscope itemtype="http://data-vocabulary.org/Organization">
+        <h1 itemprop="name">T-Mobile</h1>
+        <p itemprop="description">Server.</p>
+        <p itemprop="address" itemscope
+           itemtype="http://data-vocabulary.org/Address">
+            <span itemprop="country-name">U.S.A.</span>
+            <span itemprop="tel">1-818-302-0096</span>
+        </p>
+    </div>
+    <a href="http://www.t-mobile.com" itemprop="url">http://www.t-mobile.com</a>
+</div>
+<hr id="header_line"/>
+<div id="wrapper">
+    <header id="header">
+        <div id="logo-container-div">
+            <a href="/"><img id="t-mobile-logo"
+                             src="{{ STATIC_URL }}images/t-mobile.png"/></a>
+        </div>
+
+        <div id="grey-top-menu">
+            <h5></h5>
+        </div>
+
+
+        <h1 style="position:absolute;top:60px;margin-left:520px;">{% if is_logged_in %}
+            <a id="header_login" href="/exit">Sign Out</a>
+            {% else %}<a id="header_login" href="/enter">Sign In / Sign Up</a>{% endif %}</h1>
+    </header>
+    <!-- #header-->
+
+
+    <br/>
+
+    <section id="middle">
+        <div id="container">
+            <div id="contentFull">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <!-- #container-->
+
+        <aside id="sideLeftEmpty"></aside>
+        <!-- #sideLeft -->
+
+    </section>
+    <!-- #middle-->
+
+</div>
+<!-- #wrapper -->
+
+<footer id="footer">
+    <div id="footerInner">
+        <div id="footerColumn1">
+            <h3>T-Mobile.</h3>
+
+            <p>
+                T-Mobile’s lorem ipsum donror at em lorem ipsum donror at em lorem ipsum donror at em lorem ipsum donror at em lorem ipsum donror at em
+            </p>
+        </div>
+        <div id="footerColumn2">
+            <h3>Products</h3>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+        </div>
+        <div id="footerColumn3">
+            <h3>Services</h3>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+        </div>
+        <div id="footerColumn4">
+            <h3>Customer Support</h3>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+        </div>
+        <div id="footerColumn5">
+            <h3>Contact Us</h3>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+            <a href="#">T-Mobile Link</a>
+            <br>
+        </div>
+        <div id="footerCopyright">
+            <p>
+                <b>© 2013 T-Mobile</b>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- #footer -->
+</body>
+</html>
