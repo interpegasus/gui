@@ -1,8 +1,3 @@
-- model: gui.user
-  pk: 1
-  fields:
-    email: jhon@lennon.com
-    password: jhon@lennon.com
 - model: gui.server
   pk: 1
   fields:

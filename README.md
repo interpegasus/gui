@@ -2,6 +2,10 @@ gui
 ===
 Python Django GUI + User Authentication System
 
+************
+INSTALLATION
+************
+- Clone repository via: 'git clone https://github.com/interpegasus/gui.git'
 
 Django Installation & Tutorial
 ==============================
@@ -16,5 +20,10 @@ Database Setup (MySQL)
 
 Server Setup
 ============
-  python manage.py syncdb
-  python manage.py runserver
+- python manage.py syncdb
+- python manage.py runserver
+
+Default Server URL
+==================
+- http://127.0.0.1:8000/
+- http://127.0.0.1:8000/admin/

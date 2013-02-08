@@ -17,12 +17,12 @@ urlpatterns = patterns('',
     url(r'^/$','gui.views.front_page'),
     url(r'^configuration_form/','gui.views.configuration_form'),
     # User Session
-    url(r'^enter/', 'gui.views.enter'),
-    url(r'^exit/', 'gui.views.exit_request'),
-    url(r'^forgot_password/', 'gui.views.forgot_password'),
-    url(r'^process_sign_up/', 'gui.views.process_sign_up'),
-    url(r'^process_create_account/', 'gui.views.process_create_account'),
-    url(r'^process_forgot_password/', 'gui.views.process_forgot_password'),
+    url(r'^enter/', 'users.views.enter'),
+    url(r'^exit/', 'users.views.exit_request'),
+    url(r'^forgot_password/', 'users.views.forgot_password'),
+    url(r'^process_sign_up/', 'users.views.process_sign_up'),
+    url(r'^process_create_account/', 'users.views.process_create_account'),
+    url(r'^process_forgot_password/', 'users.views.process_forgot_password'),
 )
 
 handler404 = 'gui.views.my_custom_404_view'

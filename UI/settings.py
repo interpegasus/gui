@@ -106,7 +106,7 @@ ROOT_URLCONF = 'UI.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'UI.wsgi.application'
 
-TEMPLATE_DIRS = ('/Users/arturo/PycharmProjects/UI/templates',)
+TEMPLATE_DIRS = (BASE_DIR+'/../templates')
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -119,7 +119,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'gui'
+    'gui',
+    'users',
 )
 
 # A sample logging configuration. The only tangible logging
