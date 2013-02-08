@@ -1,10 +1,9 @@
-gui
-===
-Python Django GUI + User Authentication System
+UI Project
+==========
+Python Django UI + User Authentication System
 
-************
 INSTALLATION
-************
+============
 - Clone repository via: 'git clone https://github.com/interpegasus/gui.git'
 
 Django Installation & Tutorial
